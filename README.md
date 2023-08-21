@@ -135,7 +135,7 @@ from imagine.client import Imagine
 # Initialize the Imagine client with your API token
 client = Imagine(token="your-api-token")
 
-# Generate an image using the in-paintinting feature
+# Generate an image using the in-painting feature
 response = client.in_painting(
                 image_path="couple.png",
                 mask_path="mask.png",
