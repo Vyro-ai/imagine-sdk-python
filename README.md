@@ -119,7 +119,7 @@ response = client.variate(
     )
 
 # Check if the request was successful
-if response.status.value == 200:
+if response.status == Status.OK:
     image = response.data
     image.as_file(f"result{i}.png")
 else:
@@ -136,7 +136,11 @@ from imagine.client import Imagine
 client = Imagine(token="your-api-token")
 
 # Generate an image using the in-paintinting feature
-response = client.in_painting(image_path="couple.png", mask_path="mask.png", prompt="woman sitting next to a teddy bear")
+response = client.in_painting(
+                image_path="couple.png",
+                mask_path="mask.png",
+                prompt="woman sitting next to a teddy bear"
+        )
 
 # Checking the request status in a try-catch block
 try:
@@ -144,8 +148,7 @@ try:
     image.to_pil_image().save("result.png")
 
 except ValueError as e:
-    print(f"Error Code: {result.status.value}")
-
+    print(f"Status Code: {result.status.value}")
 ```
 **Result**:
 ![InPainting](https://vyroai.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7017cedd-aeda-4a3e-ad09-54eb8b93399d%2Finpainting.jpg?table=block&id=1bc58f0f-1d7f-465f-b414-200ceb2464b1&spaceId=60572bb8-cbeb-42ba-b882-c88845384d44&width=2000&userId=&cache=v2)
