@@ -35,7 +35,7 @@ The SDK is available as a package on PyPI.
 
 **Simply run the following command:**
 ```bash
-pip install vyroimagine
+pip install imaginesdk
 ```
 
 ### Cloning The Repository
