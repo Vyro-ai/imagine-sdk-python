@@ -1,24 +1,25 @@
 from typing import Optional
-from ...remote.http_client import HttpClient
-from ...models.imagine.response import Response
-from ...models.image.response import ResponseImage
-from ...utils.error.checker import check_and_raise
-from ...utils.file.read import read_image_file_as_bytes
-from ...utils.parameter.checker import parameter_builder, non_optional_parameter_checker
+from ....remote.http_client import HttpClient
+from ....models.response import Response
+from ....models.image import Image
+from ....utils.error.checker import check_and_raise
+from ....utils.file.read import read_image_file_as_bytes
+from ....utils.parameter.checker import parameter_builder, non_optional_parameter_checker
 
 
-class ImageRemixHandler:
+class VariateHandler:
     """
-    The ImageRemixHandler class is responsible for remixing images based on
-    specified parameters using the Imagine API's image remixing endpoint.
+    The VariateHandler class is responsible for generating image variations
+    based on specified parameters using the Imagine API's image variations
+    endpoint.
 
-    This class facilitates the interaction with the Imagine API to remix
-    images by providing an image to be remixed, a prompt, a style ID, and
-    control parameters for the remixing process.
+    This class facilitates the interaction with the Imagine API to generate
+    image variations by providing a prompt, the base image to be varied, a
+    style ID, and various optional parameters for control.
     """
 
     __client: HttpClient
-    __endpoint: str = "/edits/remix"
+    __endpoint: str = "/generations/variations"
 
     def __init__(self, client: HttpClient) -> None:
         """
@@ -29,17 +30,16 @@ class ImageRemixHandler:
 
     def __call__(
         self,
-        image_path: str,
         prompt: str,
+        image_path: str,
         style_id: int,
-        control: str,
         *,
         seed: Optional[int] = None,
-        strength: Optional[int] = None,
         steps: Optional[int] = None,
+        strength: Optional[int] = None,
         cfg: Optional[float] = None,
         neg_prompt: Optional[str] = None,
-    ) -> Response[ResponseImage]:
+    ) -> Response[Image]:
         # Validate prompt and image_path
         error: Optional[ValueError] = non_optional_parameter_checker(
             prompt=prompt, image_path=image_path
@@ -49,21 +49,21 @@ class ImageRemixHandler:
         parameters = parameter_builder(
             prompt=prompt,
             style_id=style_id,
-            control=control,
+            cfg=cfg,
             seed=seed,
             strength=strength,
             steps=steps,
-            cfg=cfg,
             negative_prompt=neg_prompt,
         )
 
         files = {"image": read_image_file_as_bytes(image_path)}
 
-        status_code, content = self.__client.post(self.__endpoint, parameters, files)
-
+        status_code, content = self.__client.post(
+            self.__endpoint, parameters=parameters, files=files
+        )
         if status_code != 200:
             return Response(None, status_code)
 
-        result = ResponseImage(content)
+        result = Image(content)
 
         return Response(result, status_code)

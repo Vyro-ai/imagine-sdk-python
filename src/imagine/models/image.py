@@ -1,8 +1,8 @@
 from io import BytesIO
-from ...utils.imports.dynamic import dynamic_import
+from ..utils.imports.dynamic import dynamic_import
 
 
-class ResponseImage:
+class Image:
     """
     A utility class for handling image data as bytes and converting
     it to various formats.
@@ -49,8 +49,6 @@ class ResponseImage:
                 + " your own implementation."
             )
 
-            raise ImportError
-
     def to_numpy(self) -> "numpy.ndarray":  # noqa: F821
         """
         Convert the image data to a NumPy array.
@@ -60,7 +58,7 @@ class ResponseImage:
         """
         np = dynamic_import("numpy")
         if np is None:
-            raise ImportError
+            return None
 
         numpy_array = np.frombuffer(self.__data, dtype=np.uint8)
         return numpy_array

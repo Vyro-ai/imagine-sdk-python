@@ -1,18 +1,18 @@
 from typing import Optional
-from ._handlers.image.alter_image import AlterImageHandler
-from ._handlers.image.generations import GenerationsHandler
-from ._handlers.image.image_remix import ImageRemixHandler
-from ._handlers.image.in_painting import InPaintHandler
-from ._handlers.image.super_resolution import SuperResolutionHandler
-from ._handlers.image.variate import VariateHandler
-from .enums.alter_image.style_ids import AlterImageStyle
-from .enums.generations.style_ids import GenerationsStyle
-from .enums.image_remix.controls import RemixControls
-from .enums.image_remix.style_ids import ImageRemixStyle
-from .enums.in_painting.model_versions import InPaintingModel
-from .enums.super_resolution.model_versions import SuperResoultionStyle
-from .models.image.response import ResponseImage
-from .models.imagine.response import Response
+from .features.alter_image.handler import AlterImageHandler
+from .features.generations.handler import GenerationsHandler
+from .features.image_remix.handler import ImageRemixHandler
+from .features.in_painting.handler import InPaintHandler
+from .features.super_resolution.handler import SuperResolutionHandler
+from .features.generations.variations.handler import VariateHandler
+from .features.alter_image.style_ids import AlterImageStyle
+from .features.generations.style_ids import GenerationsStyle
+from .features.image_remix.controls import RemixControls
+from .features.image_remix.style_ids import ImageRemixStyle
+from .features.in_painting.model_versions import InPaintingModel
+from .features.super_resolution.model_versions import SuperResoultionStyle
+from .models.image import Image
+from .models.response import Response
 from .remote.http_client import HttpClient
 from .remote.rest.http_client import RestClient
 
@@ -44,14 +44,14 @@ class Imagine:
         self,
         prompt: str,
         *,
-        style: GenerationsStyle = GenerationsStyle.STYLE_IMAGINE_V1,
+        style: GenerationsStyle = GenerationsStyle.IMAGINE_V1,
         aspect_ratio: Optional[str] = None,
         neg_prompt: Optional[str] = None,
         cfg: Optional[float] = None,
         seed: Optional[int] = None,
         steps: Optional[int] = None,
         high_res_results: Optional[int] = None,
-    ) -> Response[ResponseImage]:
+    ) -> Response[Image]:
         """
         Generate an image based on specified parameters using the
         GenerationsHandler.
@@ -95,14 +95,14 @@ class Imagine:
         image_path: str,
         prompt: str,
         *,
-        style: ImageRemixStyle = ImageRemixStyle.STYLE_IMAGINE_V1,
+        style: ImageRemixStyle = ImageRemixStyle.IMAGINE_V1,
         control: RemixControls = RemixControls.OPENPOSE,
         seed: Optional[int] = None,
         strength: Optional[int] = None,
         steps: Optional[int] = None,
         cfg: Optional[float] = None,
         neg_prompt: Optional[str] = None,
-    ) -> Response[ResponseImage]:
+    ) -> Response[Image]:
         """
         Remix an image based on specified parameters using the
         ImageRemixHandler.
@@ -149,8 +149,8 @@ class Imagine:
         self,
         image_path: str,
         *,
-        m_ver: SuperResoultionStyle = SuperResoultionStyle.MODEL_VERSION_1,
-    ) -> Response[ResponseImage]:
+        m_ver: SuperResoultionStyle = SuperResoultionStyle.BASIC,
+    ) -> Response[Image]:
         """
         Enhance the resolution of an image using the SuperResolutionHandler.
 
@@ -171,13 +171,13 @@ class Imagine:
         image_path: str,
         prompt: str,
         *,
-        style: GenerationsStyle = GenerationsStyle.STYLE_IMAGINE_V1,
+        style: GenerationsStyle = GenerationsStyle.IMAGINE_V1,
         seed: Optional[int] = None,
         steps: Optional[int] = None,
         strength: Optional[int] = None,
         cfg: Optional[float] = None,
         neg_prompt: Optional[str] = None,
-    ) -> Response[ResponseImage]:
+    ) -> Response[Image]:
         """
         Generate a variation of an image based on specified parameters using
         the VariateHandler. It is an extension of generations hence why it
@@ -222,8 +222,8 @@ class Imagine:
         mask_path: str,
         prompt: str,
         *,
-        model_version: InPaintingModel = InPaintingModel.MODEL_VERSION_1,
-    ) -> Response[ResponseImage]:
+        model_version: InPaintingModel = InPaintingModel.BASIC,
+    ) -> Response[Image]:
         """
         Perform image in-painting based on specified parameters using the
         InPaintHandler.
@@ -254,7 +254,7 @@ class Imagine:
         image_path: str,
         prompt: str,
         *,
-        style: AlterImageStyle = AlterImageStyle.STYLE_ID_1,
+        style: AlterImageStyle = AlterImageStyle.BASIC,
         neg_prompt: Optional[str] = None,
         aspect_ratio: Optional[str] = None,
         seed: Optional[int] = None,
@@ -262,7 +262,7 @@ class Imagine:
         generation_bias: Optional[float] = None,
         artistic_noise: Optional[float] = None,
         aesthetic_weight: Optional[float] = None,
-    ) -> Response[ResponseImage]:
+    ) -> Response[Image]:
         """
         Alter an image based on specified parameters using the
         AlterImageHandler.

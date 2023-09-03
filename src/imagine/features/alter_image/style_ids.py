@@ -6,4 +6,4 @@ class AlterImageStyle(Enum):
     Enums for AlterImage style_ids
     """
 
-    STYLE_ID_1 = 1
+    BASIC = 1

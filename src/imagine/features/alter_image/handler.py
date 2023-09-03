@@ -1,7 +1,7 @@
 from typing import Optional
 from ...remote.http_client import HttpClient
-from ...models.imagine.response import Response
-from ...models.image.response import ResponseImage
+from ...models.response import Response
+from ...models.image import Image
 from ...utils.error.checker import check_and_raise
 from ...utils.file.read import read_image_file_as_bytes
 from ...utils.parameter.checker import parameter_builder, non_optional_parameter_checker
@@ -41,7 +41,7 @@ class AlterImageHandler:
         generation_bias: Optional[float] = None,
         artistic_noise: Optional[float] = None,
         aesthetic_weight: Optional[float] = None,
-    ) -> Response[ResponseImage]:
+    ) -> Response[Image]:
         # Validate prompt and image_path
         error: Optional[ValueError] = non_optional_parameter_checker(
             prompt=prompt, image_path=image_path
@@ -66,6 +66,6 @@ class AlterImageHandler:
         if status_code != 200:
             return Response(None, status_code)
 
-        result = ResponseImage(content)
+        result = Image(content)
 
         return Response(result, status_code)
