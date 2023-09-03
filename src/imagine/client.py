@@ -9,8 +9,8 @@ from .features.alter_image.style_ids import AlterImageStyle
 from .features.generations.style_ids import GenerationsStyle
 from .features.image_remix.controls import RemixControls
 from .features.image_remix.style_ids import ImageRemixStyle
-from .features.in_painting.model_versions import InPaintingModel
-from .features.super_resolution.model_versions import SuperResoultionStyle
+from .features.in_painting.style_ids import InPaintingStyle
+from .features.super_resolution.style_ids import SuperResoultionStyle
 from .models.image import Image
 from .models.response import Response
 from .remote.http_client import HttpClient
@@ -222,7 +222,7 @@ class Imagine:
         mask_path: str,
         prompt: str,
         *,
-        model_version: InPaintingModel = InPaintingModel.BASIC,
+        model_version: InPaintingStyle = InPaintingStyle.BASIC,
     ) -> Response[Image]:
         """
         Perform image in-painting based on specified parameters using the
