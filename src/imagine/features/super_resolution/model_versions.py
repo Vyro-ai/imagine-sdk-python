@@ -6,4 +6,4 @@ class SuperResoultionStyle(Enum):
     Enums for SuperResoultion model versions
     """
 
-    MODEL_VERSION_1 = 1
+    BASIC = 1

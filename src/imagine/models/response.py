@@ -1,5 +1,5 @@
 from typing import TypeVar, Generic, Optional
-from ...enums.status.imagine import Status
+from .status import Status
 
 
 T = TypeVar("T")

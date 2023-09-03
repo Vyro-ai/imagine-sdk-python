@@ -17,6 +17,6 @@ def dynamic_import(module_name: str) -> Optional[ModuleType]:
         module = importlib.import_module(module_name)
         return module
     except ImportError:
-        print(f"Module {module_name} not found. If you wish to make use of this method,"
+        print(f"Module '{module_name}' not found. If you wish to make use of this method,"
               + " consider using pip to install the module in question or providing"
               + " your own implementation.")
