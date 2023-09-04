@@ -34,8 +34,8 @@ class Imagine:
 
         :param token: The authorization token used for API authentication.
         :type token: str
-        :param client: An optional instance of :class:HttpClient to use for requests.
-        :type client: Optional[:class:HttpClient]
+        :param client: An optional instance of :class:`HttpClient` to use for requests.
+        :type client: Optional[:py:class:`HttpClient`]
         """
         self.__token = token
         self.__client = RestClient(token, client)
@@ -60,7 +60,7 @@ class Imagine:
         :type prompt: str
         :param style: The style for the image generation (default:
             GenerationsStyle.STYLE_IMAGINE_V1).
-        :type style: :class:GenerationsStyle
+        :type style: :class:`GenerationsStyle`
         :param aspect_ratio: The aspect ratio of the image (default: None).
         :type aspect_ratio: Optional[str]
         :param neg_prompt: The negative prompt for contrasting images (default: None).
@@ -72,10 +72,10 @@ class Imagine:
         :param steps: The number of steps for generating the image (default: None).
         :type steps: Optional[int]
         :param high_res_results: The level of high-resolution results (default: False).
-        :type high_res_results: Boolean
-        :return: A response containing the generated error or an :class:Image
+        :type high_res_results: bool
+        :return: A response containing the generated error or an :class:`Image`
             object.
-        :rtype: :class:Response[:class:Image]
+        :rtype: :class:`Response`[:class:`Image`]
         """
         handler = GenerationsHandler(self.__client)
 
@@ -113,10 +113,10 @@ class Imagine:
         :type prompt: str
         :param style: The style for the image remixing (default:
             ImageRemixStyle.STYLE_IMAGINE_V1).
-        :type style: :class:ImageRemixStyle
+        :type style: :class:`ImageRemixStyle`
         :param control: The control settings for remixing (default:
             RemixControls.OPENPOSE).
-        :type control: :class:RemixControls
+        :type control: :class:`RemixControls`
         :param seed: The random seed for reproducible remixing (default: None).
         :type seed: Optional[int]
         :param strength: The strength of the remixing effect (default: None).
@@ -127,9 +127,9 @@ class Imagine:
         :type cfg: Optional[float]
         :param neg_prompt: The negative prompt for remixing (default: None).
         :type neg_prompt: Optional[str]
-        :return: A response containing the generated error or an :class:Image
+        :return: A response containing the generated error or an :class:`Image`
             object.
-        :rtype: :class:Response[:class:Image]
+        :rtype: :class:`Response`[:class:`Image`]
         """
         handler = ImageRemixHandler(self.__client)
 
@@ -156,11 +156,11 @@ class Imagine:
 
         :param image_path: The path to the source image.
         :type image_path: str
-        :param m_ver: The model version for super resolution.
-        :type m_ver: :class:SuperResoultionStyle
-        :return: A response containing the generated error or an :class:Image
+        :param style: The model version for super resolution.
+        :type style: :class:SuperResolutionStyle
+        :return: A response containing the generated error or an :class:`Image`
             object.
-        :rtype: :class:Response[:class:Image]
+        :rtype: :class:`Response`[:class:`Image`]
         """
         handler = SuperResolutionHandler(self.__client)
 
@@ -188,7 +188,7 @@ class Imagine:
         :param prompt: The prompt for generating the variation.
         :type prompt: str
         :param style: The style for generating the variation.
-        :type style: :class:GenerationsStyle
+        :type style: :class:`GenerationsStyle`
         :param seed: The random seed for reproducible generation.
         :type seed: Optional[int]
         :param steps: The number of steps for generating the variation.
@@ -199,9 +199,9 @@ class Imagine:
         :type cfg: Optional[float]
         :param neg_prompt: The negative prompt for contrasting variations.
         :type neg_prompt: Optional[str]
-        :return: A response containing the generated error or an :class:Image
+        :return: A response containing the generated error or an :class:`Image`
             object.
-        :rtype: :class:Response[:class:Image]
+        :rtype: :class:`Response`[:class:`Image`]
         """
         handler = VariationsHandler(self.__client)
 
@@ -234,11 +234,11 @@ class Imagine:
         :type mask_path: str
         :param prompt: The prompt for guiding the in-painting process.
         :type prompt: str
-        :param model_version: The model version for in-painting.
-        :type model_version: :class:InPaintingModel
-        :return: A response containing the generated error or an :class:Image
+        :param style: The model version for in-painting.
+        :type style: :class:`InPaintingModel`
+        :return: A response containing the generated error or an :class:`Image`
             object.
-        :rtype: :class:Response[:class:Image]
+        :rtype: :class:`Response`[:class:`Image`]
         """
         handler = InPaintHandler(self.__client)
 
@@ -272,7 +272,7 @@ class Imagine:
         :param prompt: The prompt for image alteration.
         :type prompt: str
         :param style: The style ID for image alteration.
-        :type style: :class:AlterImageStyle
+        :type style: :class:`AlterImageStyle`
         :param neg_prompt: The negative prompt for generating contrasting alterations.
         :type neg_prompt: Optional[str]
         :param aspect_ratio: The aspect ratio of the altered image.
@@ -287,9 +287,9 @@ class Imagine:
         :type artistic_noise: Optional[float]
         :param aesthetic_weight: The weight of aesthetic changes.
         :type aesthetic_weight: Optional[float]
-        :return: A response containing the generated error or an :class:Image
+        :return: A response containing the generated error or an :class:`Image`
             object.
-        :rtype: :class:Response[:class:Image]
+        :rtype: :class:`Response`[:class:`Image`]
         """
         handler = GuidedGenerationsHandler(self.__client)
 

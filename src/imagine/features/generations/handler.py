@@ -22,7 +22,7 @@ class GenerationsHandler:
     def __init__(self, client: HttpClient) -> None:
         """
         :param client: An instance of an HTTP client used to make requests to the API.
-        :type client: :class:HttpClient
+        :type client: :class:`HttpClient`
         """
         self.__client = client
 

@@ -18,9 +18,9 @@ class RestClient(HttpClient):
         """
         :param token: The authorization token used for API authentication.
         :type token: str
-        :param client: An optional :class:HttpClient instance for making requests.
-            If not provided, a default :class:RequestClient instance will be used.
-        :type client: Optional[:class:HttpClient], optional
+        :param client: An optional :class:`HttpClient` instance for making requests.
+            If not provided, a default :class:`RequestClient` instance will be used.
+        :type client: Optional[:class:`HttpClient`], optional
         """
         self.__token = token
         if client is not None:

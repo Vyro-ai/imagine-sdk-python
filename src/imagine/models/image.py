@@ -68,8 +68,8 @@ class Image:
         Write the image bytes to a file-like object.
         :param file_path: The path of the file to write the image bytes to.
         :type file_path: str
-        :return: A file-like object containing the image bytes.
-        :rtype: io.BytesIO
+        :return: The file path
+        :rtype: str
         """
         with open(file_path, "wb") as file:
             file.write(self.__data)

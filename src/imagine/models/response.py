@@ -32,7 +32,7 @@ class Response(Generic[T]):
         Get the status of the response.
 
         :return: The status of the response.
-        :rtype: :class:Status
+        :rtype: :class:`Status`
         """
         return self.__status
 
