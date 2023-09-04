@@ -7,7 +7,7 @@ from ....utils.file.read import read_image_file_as_bytes
 from ....utils.parameter.checker import parameter_builder, non_optional_parameter_checker
 
 
-class VariateHandler:
+class VariationsHandler:
     """
     The VariateHandler class is responsible for generating image variations
     based on specified parameters using the Imagine API's image variations

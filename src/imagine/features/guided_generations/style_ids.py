@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class AlterImageStyle(Enum):
+class GuidedGenerationsStyle(Enum):
     """
     Enums for AlterImage style_ids
     """

@@ -1,16 +1,17 @@
 from typing import Optional
-from .features.alter_image.handler import AlterImageHandler
+from xmlrpc.client import Boolean
+from .features.guided_generations.handler import GuidedGenerationsHandler
 from .features.generations.handler import GenerationsHandler
 from .features.image_remix.handler import ImageRemixHandler
 from .features.in_painting.handler import InPaintHandler
 from .features.super_resolution.handler import SuperResolutionHandler
-from .features.generations.variations.handler import VariateHandler
-from .features.alter_image.style_ids import AlterImageStyle
+from .features.generations.variations.handler import VariationsHandler
+from .features.guided_generations.style_ids import GuidedGenerationsStyle
 from .features.generations.style_ids import GenerationsStyle
 from .features.image_remix.controls import RemixControls
 from .features.image_remix.style_ids import ImageRemixStyle
 from .features.in_painting.style_ids import InPaintingStyle
-from .features.super_resolution.style_ids import SuperResoultionStyle
+from .features.super_resolution.style_ids import SuperResolutionStyle
 from .models.image import Image
 from .models.response import Response
 from .remote.http_client import HttpClient
@@ -50,7 +51,7 @@ class Imagine:
         cfg: Optional[float] = None,
         seed: Optional[int] = None,
         steps: Optional[int] = None,
-        high_res_results: Optional[int] = None,
+        high_res_results: Boolean = False,
     ) -> Response[Image]:
         """
         Generate an image based on specified parameters using the
@@ -71,11 +72,11 @@ class Imagine:
         :type seed: Optional[int]
         :param steps: The number of steps for generating the image (default: None).
         :type steps: Optional[int]
-        :param high_res_results: The level of high-resolution results (default: None).
-        :type high_res_results: Optional[int]
-        :return: A response containing the generated error or an :class:ResponseImage
+        :param high_res_results: The level of high-resolution results (default: False).
+        :type high_res_results: Boolean
+        :return: A response containing the generated error or an :class:Image
             object.
-        :rtype: :class:Response[:class:ResponseImage]
+        :rtype: :class:Response[:class:Image]
         """
         handler = GenerationsHandler(self.__client)
 
@@ -86,7 +87,7 @@ class Imagine:
             cfg=cfg,
             seed=seed,
             neg_prompt=neg_prompt,
-            high_res_results=high_res_results,
+            high_res_results=int(high_res_results),
             steps=steps,
         )
 
@@ -127,9 +128,9 @@ class Imagine:
         :type cfg: Optional[float]
         :param neg_prompt: The negative prompt for remixing (default: None).
         :type neg_prompt: Optional[str]
-        :return: A response containing the generated error or an :class:ResponseImage
+        :return: A response containing the generated error or an :class:Image
             object.
-        :rtype: :class:Response[:class:ResponseImage]
+        :rtype: :class:Response[:class:Image]
         """
         handler = ImageRemixHandler(self.__client)
 
@@ -149,7 +150,7 @@ class Imagine:
         self,
         image_path: str,
         *,
-        m_ver: SuperResoultionStyle = SuperResoultionStyle.BASIC,
+        style: SuperResolutionStyle = SuperResolutionStyle.BASIC,
     ) -> Response[Image]:
         """
         Enhance the resolution of an image using the SuperResolutionHandler.
@@ -158,15 +159,15 @@ class Imagine:
         :type image_path: str
         :param m_ver: The model version for super resolution.
         :type m_ver: :class:SuperResoultionStyle
-        :return: A response containing the generated error or an :class:ResponseImage
+        :return: A response containing the generated error or an :class:Image
             object.
-        :rtype: :class:Response[:class:ResponseImage]
+        :rtype: :class:Response[:class:Image]
         """
         handler = SuperResolutionHandler(self.__client)
 
-        return handler(image_path=image_path, model_version=m_ver.value)
+        return handler(image_path=image_path, model_version=style.value)
 
-    def variate(
+    def variations(
         self,
         image_path: str,
         prompt: str,
@@ -181,7 +182,7 @@ class Imagine:
         """
         Generate a variation of an image based on specified parameters using
         the VariateHandler. It is an extension of generations hence why it
-        uses the same enums as Generations.
+        uses the same styles as Generations.
 
         :param image_path: The path to the source image.
         :type image_path: str
@@ -199,11 +200,11 @@ class Imagine:
         :type cfg: Optional[float]
         :param neg_prompt: The negative prompt for contrasting variations.
         :type neg_prompt: Optional[str]
-        :return: A response containing the generated error or an :class:ResponseImage
+        :return: A response containing the generated error or an :class:Image
             object.
-        :rtype: :class:Response[:class:ResponseImage]
+        :rtype: :class:Response[:class:Image]
         """
-        handler = VariateHandler(self.__client)
+        handler = VariationsHandler(self.__client)
 
         return handler(
             prompt=prompt,
@@ -222,7 +223,7 @@ class Imagine:
         mask_path: str,
         prompt: str,
         *,
-        model_version: InPaintingStyle = InPaintingStyle.BASIC,
+        style: InPaintingStyle = InPaintingStyle.BASIC,
     ) -> Response[Image]:
         """
         Perform image in-painting based on specified parameters using the
@@ -236,9 +237,9 @@ class Imagine:
         :type prompt: str
         :param model_version: The model version for in-painting.
         :type model_version: :class:InPaintingModel
-        :return: A response containing the generated error or an :class:ResponseImage
+        :return: A response containing the generated error or an :class:Image
             object.
-        :rtype: :class:Response[:class:ResponseImage]
+        :rtype: :class:Response[:class:Image]
         """
         handler = InPaintHandler(self.__client)
 
@@ -246,15 +247,15 @@ class Imagine:
             prompt=prompt,
             image_path=image_path,
             mask_path=mask_path,
-            model_version=model_version.value,
+            model_version=style.value,
         )
 
-    def alter_image(
+    def guided_generations(
         self,
         image_path: str,
         prompt: str,
         *,
-        style: AlterImageStyle = AlterImageStyle.BASIC,
+        style: GuidedGenerationsStyle = GuidedGenerationsStyle.BASIC,
         neg_prompt: Optional[str] = None,
         aspect_ratio: Optional[str] = None,
         seed: Optional[int] = None,
@@ -265,7 +266,7 @@ class Imagine:
     ) -> Response[Image]:
         """
         Alter an image based on specified parameters using the
-        AlterImageHandler.
+        GuidedGenerationsHandler.
 
         :param image_path: The path to the source image.
         :type image_path: str
@@ -287,11 +288,11 @@ class Imagine:
         :type artistic_noise: Optional[float]
         :param aesthetic_weight: The weight of aesthetic changes.
         :type aesthetic_weight: Optional[float]
-        :return: A response containing the generated error or an :class:ResponseImage
+        :return: A response containing the generated error or an :class:Image
             object.
-        :rtype: :class:Response[:class:ResponseImage]
+        :rtype: :class:Response[:class:Image]
         """
-        handler = AlterImageHandler(self.__client)
+        handler = GuidedGenerationsHandler(self.__client)
 
         return handler(
             prompt=prompt,
