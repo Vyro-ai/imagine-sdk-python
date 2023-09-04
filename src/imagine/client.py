@@ -1,5 +1,4 @@
 from typing import Optional
-from xmlrpc.client import Boolean
 from .features.guided_generations.handler import GuidedGenerationsHandler
 from .features.generations.handler import GenerationsHandler
 from .features.image_remix.handler import ImageRemixHandler
@@ -51,7 +50,7 @@ class Imagine:
         cfg: Optional[float] = None,
         seed: Optional[int] = None,
         steps: Optional[int] = None,
-        high_res_results: Boolean = False,
+        high_res_results: bool = False,
     ) -> Response[Image]:
         """
         Generate an image based on specified parameters using the
