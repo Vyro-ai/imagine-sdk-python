@@ -63,7 +63,6 @@ The Imagine class acts as a facade, providing an interface to interact with all 
 - **Super-Resolution**: `super_resolution() -> Response[Image]`
 - **Variations**: `variations() -> Response[Image]` (_Currently Not Supported_)
 - **In-Painting**: `in_painting() -> Response[Image]` (_Currently Not Supported_)
-- **Guided-Generations**: `guided_generations() -> Response[Image]` (_Currently Not Supported_)
 
 For the full list of parameters and other details, check out the [documentation](https://vyroai.notion.site/API-Documentation-e643af82991f4265841cff2951eac803).
 
@@ -183,7 +182,13 @@ If you want one but not the other dependency then you also have the option of in
 
 ### Pillow (PIL)
 
-> To use this method you must have Pillow installed
+> If you installed imaginesdk[all], you can skip the first step.
+
+First, get the dependency for Pillow
+
+```bash
+pip install Pillow
+```
 
 After running the aforementioned command you can now use the response data as a pillow object:
 
@@ -193,7 +198,13 @@ image.to_pil_image() # -> PIL_Image
 
 ### Numpy
 
-> To use this method you must have Numpy installed
+> If you installed imaginesdk[all], you can skip the first step.
+
+First, get the dependency for Numpy
+
+```bash
+pip install numpy
+```
 
 After running the aformentioned command you can now use the response data as a numpy object:
 
