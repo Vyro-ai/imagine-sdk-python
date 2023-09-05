@@ -2,21 +2,19 @@
 
 Imagine SDK is a Python library that provides a convenient interface to interact with the Imagine API for image generation and manipulation. This README provides an overview of the library's features, installation instructions, and usage examples.
 
-
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-    - [Imagine Client](#imagine-client)
-    - [Response](#response)
-    - [Image](#image)
-    - [Some More Usage Examples](#some-more-usage-examples)
+  - [Imagine Client](#imagine-client)
+  - [Response](#response)
+  - [Image](#image)
+  - [Some More Usage Examples](#some-more-usage-examples)
 - [Integration With Other Libraries](#integration-with-other-libraries)
-    - [Pillow (PIL)](#pillow-pil)
-    - [Numpy](#numpy)
+  - [Pillow (PIL)](#pillow-pil)
+  - [Numpy](#numpy)
 - [Support](#support)
 - [License](#license)
-
 
 ## Installation
 
@@ -25,7 +23,6 @@ The API works for python 3.6 and above. To install the package, execute the foll
 ```bash
 pip install imaginesdk
 ```
-
 
 ## Usage
 
@@ -53,7 +50,7 @@ else:
     print(f"Status Code: {response.status.value}")
 ```
 
-#### Result:
+**Result**:
 
 ![Generations](https://user-images.githubusercontent.com/56919667/261864112-0e419627-cbbe-4fb1-82e2-2637ee6392fb.png)
 
@@ -82,9 +79,10 @@ Response is the return type for each of our functions. It contains the following
 For the full list of arguments and other details, check out the [documentation](https://vyroai.notion.site/API-Documentation-e643af82991f4265841cff2951eac803).
 
 ### Image
+
 All the functions related to Images contain an Image data type as the data in their Response. It currently provides the following:
 
-#### bytes:
+#### bytes
 
 Returns the bytes received after a request operation
 
@@ -92,7 +90,7 @@ Returns the bytes received after a request operation
 image.bytes # -> bytes
 ```
 
-#### as_file(file_path: str):
+#### as_file(file_path: str)
 
 Stores the image in the specified path and returns the path.
 
@@ -100,17 +98,17 @@ Stores the image in the specified path and returns the path.
 image.as_file("file_path") # -> str (file_path)
 ```
 
-#### to_pil_image():
+#### to_pil_image()
 
 The module is loaded dynamically and is not included in the default package, you can choose to forgo this dependency. [See this](#integration-with-other-libraries) for more information.
 
-#### to_numpy():
+#### to_numpy()
 
 The module is loaded dynamically and is not included in the default package, you can choose to forgo this dependency. [See this](#integration-with-other-libraries) for more information.
 
-### Some More Usage Examples:
+### Some More Usage Examples
 
-#### Variations:
+#### Variations
 
 > Currently Not Supported
 
@@ -137,10 +135,11 @@ else:
     print(f"Status Code: {response.status.value}")
 ```
 
-#### Result:
+**Result**:
+
 ![Variate](https://vyroai.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7a2a54f2-c762-45ea-a1bd-c655ed421caa%2Fbanner_2.png?table=block&id=d60f4549-e35c-4044-afaa-7cd9d17803a2&spaceId=60572bb8-cbeb-42ba-b882-c88845384d44&width=2000&userId=&cache=v2)
 
-#### In-Painting:
+#### In-Painting
 
 > Currently Not Supported
 
@@ -171,7 +170,6 @@ else:
 
 **Result**:
 ![InPainting](https://vyroai.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7017cedd-aeda-4a3e-ad09-54eb8b93399d%2Finpainting.jpg?table=block&id=1bc58f0f-1d7f-465f-b414-200ceb2464b1&spaceId=60572bb8-cbeb-42ba-b882-c88845384d44&width=2000&userId=&cache=v2)
-
 
 ## Integration With Other Libraries
 
