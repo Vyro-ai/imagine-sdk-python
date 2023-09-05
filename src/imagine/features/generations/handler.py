@@ -1,7 +1,7 @@
 from typing import Optional
 from ...remote.http_client import HttpClient
-from ...models.imagine.response import Response
-from ...models.image.response import ResponseImage
+from ...models.response import Response
+from ...models.image import Image
 from ...utils.error.checker import check_and_raise
 from ...utils.parameter.checker import parameter_builder, non_optional_parameter_checker
 
@@ -22,7 +22,7 @@ class GenerationsHandler:
     def __init__(self, client: HttpClient) -> None:
         """
         :param client: An instance of an HTTP client used to make requests to the API.
-        :type client: :class:HttpClient
+        :type client: :class:`HttpClient`
         """
         self.__client = client
 
@@ -37,7 +37,7 @@ class GenerationsHandler:
         seed: Optional[int] = None,
         steps: Optional[int] = None,
         high_res_results: Optional[int] = None,
-    ) -> Response[ResponseImage]:
+    ) -> Response[Image]:
         # Validate that prompt is not empty
         error: Optional[ValueError] = non_optional_parameter_checker(prompt=prompt)
         check_and_raise(error)
@@ -57,6 +57,6 @@ class GenerationsHandler:
         if status_code != 200:
             return Response(None, status_code)
 
-        result = ResponseImage(content)
+        result = Image(content)
 
         return Response(result, status_code)

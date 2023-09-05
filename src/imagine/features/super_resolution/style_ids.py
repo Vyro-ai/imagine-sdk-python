@@ -1,9 +1,9 @@
 from enum import Enum
 
 
-class SuperResoultionStyle(Enum):
+class SuperResolutionStyle(Enum):
     """
     Enums for SuperResoultion model versions
     """
 
-    MODEL_VERSION_1 = 1
+    BASIC = 1

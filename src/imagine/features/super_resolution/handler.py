@@ -1,7 +1,7 @@
 from typing import Optional
 from ...remote.http_client import HttpClient
-from ...models.imagine.response import Response
-from ...models.image.response import ResponseImage
+from ...models.response import Response
+from ...models.image import Image
 from ...utils.error.checker import check_and_raise
 from ...utils.file.read import read_image_file_as_bytes
 from ...utils.parameter.checker import parameter_builder, non_optional_parameter_checker
@@ -23,11 +23,11 @@ class SuperResolutionHandler:
     def __init__(self, client: HttpClient) -> None:
         """
         :param client: An instance of an HTTP client used to make requests to the API.
-        :type client: :class:HttpClient
+        :type client: :class:`HttpClient`
         """
         self.__client = client
 
-    def __call__(self, image_path: str, model_version: str) -> Response[ResponseImage]:
+    def __call__(self, image_path: str, model_version: str) -> Response[Image]:
         # Validate prompt and image_path
         error: Optional[ValueError] = non_optional_parameter_checker(
             image_path=image_path
@@ -42,6 +42,6 @@ class SuperResolutionHandler:
         if status_code != 200:
             return Response(None, status_code)
 
-        result = ResponseImage(content)
+        result = Image(content)
 
         return Response(result, status_code)

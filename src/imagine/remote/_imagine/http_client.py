@@ -48,4 +48,4 @@ class RequestClient(HttpClient):
 
         response = requests.post(url, headers=headers, files=multipart, timeout=180)
 
-        return (response.status_code, response.content)
+        return response.status_code, response.content

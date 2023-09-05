@@ -1,9 +1,9 @@
 from enum import Enum
 
 
-class InPaintingModel(Enum):
+class InPaintingStyle(Enum):
     """
     Enums for InPainting models versions
     """
 
-    MODEL_VERSION_1 = "1"
+    BASIC = "1"
