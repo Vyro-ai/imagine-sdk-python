@@ -1,11 +1,9 @@
 from typing import Optional
-from .features.guided_generations.handler import GuidedGenerationsHandler
 from .features.generations.handler import GenerationsHandler
 from .features.image_remix.handler import ImageRemixHandler
 from .features.in_painting.handler import InPaintHandler
 from .features.super_resolution.handler import SuperResolutionHandler
 from .features.generations.variations.handler import VariationsHandler
-from .features.guided_generations.style_ids import GuidedGenerationsStyle
 from .features.generations.style_ids import GenerationsStyle
 from .features.image_remix.controls import RemixControls
 from .features.image_remix.style_ids import ImageRemixStyle
@@ -247,61 +245,4 @@ class Imagine:
             image_path=image_path,
             mask_path=mask_path,
             model_version=style.value,
-        )
-
-    def guided_generations(
-        self,
-        image_path: str,
-        prompt: str,
-        *,
-        style: GuidedGenerationsStyle = GuidedGenerationsStyle.BASIC,
-        neg_prompt: Optional[str] = None,
-        aspect_ratio: Optional[str] = None,
-        seed: Optional[int] = None,
-        steps: Optional[int] = None,
-        generation_bias: Optional[float] = None,
-        artistic_noise: Optional[float] = None,
-        aesthetic_weight: Optional[float] = None,
-    ) -> Response[Image]:
-        """
-        Alter an image based on specified parameters using the
-        GuidedGenerationsHandler.
-
-        :param image_path: The path to the source image.
-        :type image_path: str
-        :param prompt: The prompt for image alteration.
-        :type prompt: str
-        :param style: The style ID for image alteration.
-        :type style: :class:`AlterImageStyle`
-        :param neg_prompt: The negative prompt for generating contrasting alterations.
-        :type neg_prompt: Optional[str]
-        :param aspect_ratio: The aspect ratio of the altered image.
-        :type aspect_ratio: Optional[str]
-        :param seed: The random seed for reproducible alteration.
-        :type seed: Optional[int]
-        :param steps: The number of steps for altering the image.
-        :type steps: Optional[int]
-        :param generation_bias: The bias for image generation.
-        :type generation_bias: Optional[float]
-        :param artistic_noise: The amount of artistic noise to apply.
-        :type artistic_noise: Optional[float]
-        :param aesthetic_weight: The weight of aesthetic changes.
-        :type aesthetic_weight: Optional[float]
-        :return: A response containing the generated error or an :class:`Image`
-            object.
-        :rtype: :class:`Response`[:class:`Image`]
-        """
-        handler = GuidedGenerationsHandler(self.__client)
-
-        return handler(
-            prompt=prompt,
-            image_path=image_path,
-            style_id=style.value,
-            neg_prompt=neg_prompt,
-            aspect_ratio=aspect_ratio,
-            seed=seed,
-            steps=steps,
-            generation_bias=generation_bias,
-            artistic_noise=artistic_noise,
-            aesthetic_weight=aesthetic_weight,
         )
