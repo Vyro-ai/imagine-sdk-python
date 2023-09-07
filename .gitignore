@@ -9,3 +9,4 @@ main.py
 result*.png
 dist/
 .DS_Store
+docs/_build/
