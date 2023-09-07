@@ -21,9 +21,3 @@ Join Our Community
 ------------------
 
 Imagine SDK is more than just a tool; it's a thriving community of innovators, creators, and developers united by a shared passion for pushing the boundaries of visual content possibilities. We extend an invitation to you to become a part of our community and embark on this exciting journey together. Join our community on Slack `here <https://join.slack.com/t/imagineapisupport/shared_invite/zt-22qxrlslx-C4ePnfvcU988PfBP5N5VHQ>`_.
-
-Thank you for selecting Imagine SDK. We eagerly anticipate the opportunity to assist you in transforming your creative visions into reality.
-
-Best Regards,
-
-The Imagine SDK Team
