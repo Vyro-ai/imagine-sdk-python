@@ -9,8 +9,8 @@ def parameter_builder(**kwargs: Any) -> Dict[str, Any]:
     key-value pairs in the provided keyword arguments and including only the
     non-null values in the resulting dictionary.
 
-    :param **kwargs: Keyword arguments with keys as strings and values of any type.
-    :type **kwargs: Any
+    :param `**kwargs`: Keyword arguments with keys as strings and values of any type.
+    :type `**kwargs`: Any
     :return: A dictionary containing non-null key-value pairs.
     :rtype: Dict[str, Any]
 
@@ -30,8 +30,8 @@ def non_optional_parameter_checker(**kwargs: Any) -> Optional[ValueError]:
     of the values are None. If any value is None, it raises a ValueError
     indicating that the parameter cannot be null.
 
-    :param **kwargs: Keyword arguments with keys as strings and values of any type.
-    :type **kwargs: Any
+    :param `**kwargs`: Keyword arguments with keys as strings and values of any type.
+    :type `**kwargs`: Any
     :return: A ValueError if any parameter value is None, otherwise None.
     :rtype: Optional[ValueError]
 
