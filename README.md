@@ -29,16 +29,19 @@ pip install imaginesdk
 The SDK needs to be configured with an API key which is available [here](https://platform.imagine.art/). It will be passed to the Imagine class as an argument while instantiating it.
 
 ```python
-from imagine.client import Imagine
-from imagine.features.generations.style_ids import GenerationsStyle
-from imagine.models.status import Status
+from imagine import Imagine
+from imagine.styles import GenerationsStyle
+from imagine.models import Status
 
 # Initialize the Imagine client with your API token
 client = Imagine(token="your-api-token")
 
 # Generate an image using the generations feature
 response = client.generations(
-    prompt="A vibrant and whimsical fantasy forest with magical creatures, glowing plants, and a flowing river, in a digital painting style inspired by video games like Ori and the Blind Forest.",
+    prompt='''
+    A vibrant and whimsical fantasy forest with magical creatures, glowing plants, 
+    and a flowing river, in a digital painting style inspired by video games like Ori and the Blind Forest.
+    ''',
     style=GenerationsStyle.IMAGINE_V5,
 )
 
@@ -112,9 +115,9 @@ The module is loaded dynamically and is not included in the default package, you
 > Currently Not Supported
 
 ```python
-from imagine.client import Imagine
-from imagine.features.generations.style_ids import GenerationsStyle
-from imagine.models.status import Status
+from imagine import Imagine
+from imagine.styles import GenerationsStyle
+from imagine.models import Status
 
 # Initialize the Imagine client with your API token
 client = Imagine(token="your-api-token")
@@ -143,9 +146,9 @@ else:
 > Currently Not Supported
 
 ```python
-from imagine.client import Imagine
-from imagine.features.in_painting.style_ids import InPaintingStyle
-from imagine.models.status import Status
+from imagine import Imagine
+from imagine.styles import InPaintingStyle
+from imagine.models import Status
 
 # Initialize the Imagine client with your API token
 client = Imagine(token="your-api-token")
@@ -158,7 +161,7 @@ response = client.in_painting(
     style=InPaintingStyle.BASIC,
 )
 
-# Checking the request status in a try-catch block
+# Check if the request was successful
 if response.status == Status.OK:
     image = response.data
     image.as_file("result.png")
