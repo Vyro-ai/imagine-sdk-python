@@ -25,8 +25,13 @@ class Imagine:
     and manipulation functions.
     """
 
-    __token: str
     __client: HttpClient
+
+    __generations_handler: GenerationsHandler
+    __image_remix_handler: ImageRemixHandler
+    __super_resolution_handler: SuperResolutionHandler
+    __variations_handler: VariationsHandler
+    __in_paint_handler: InPaintHandler
 
     def __init__(self, token: str, *, client: Optional[HttpClient] = None) -> None:
         """
@@ -37,8 +42,13 @@ class Imagine:
         :param client: An optional instance of :class:`HttpClient` to use for requests.
         :type client: Optional[:py:class:`HttpClient`]
         """
-        self.__token = token
         self.__client = RestClient(token, client)
+
+        self.__generations_handler = GenerationsHandler(self.__client)
+        self.__image_remix_handler = ImageRemixHandler(self.__client)
+        self.__super_resolution_handler = SuperResolutionHandler(self.__client)
+        self.__variations_handler = VariationsHandler(self.__client)
+        self.__in_paint_handler = InPaintHandler(self.__client)
 
     def generations(
         self,
@@ -77,9 +87,7 @@ class Imagine:
             object.
         :rtype: :class:`Response`[:class:`Image`]
         """
-        handler = GenerationsHandler(self.__client)
-
-        return handler(
+        return self.__generations_handler(
             prompt=prompt,
             style_id=style.value,
             aspect_ratio=aspect_ratio.value,
@@ -131,9 +139,7 @@ class Imagine:
             object.
         :rtype: :class:`Response`[:class:`Image`]
         """
-        handler = ImageRemixHandler(self.__client)
-
-        return handler(
+        return self.__image_remix_handler(
             prompt=prompt,
             image_path=image_path,
             style_id=style.value,
@@ -162,9 +168,10 @@ class Imagine:
             object.
         :rtype: :class:`Response`[:class:`Image`]
         """
-        handler = SuperResolutionHandler(self.__client)
-
-        return handler(image_path=image_path, model_version=style.value)
+        return self.__super_resolution_handler(
+            image_path=image_path,
+            model_version=style.value
+        )
 
     def variations(
         self,
@@ -203,9 +210,7 @@ class Imagine:
             object.
         :rtype: :class:`Response`[:class:`Image`]
         """
-        handler = VariationsHandler(self.__client)
-
-        return handler(
+        return self.__variations_handler(
             prompt=prompt,
             image_path=image_path,
             style_id=style.value,
@@ -240,9 +245,7 @@ class Imagine:
             object.
         :rtype: :class:`Response`[:class:`Image`]
         """
-        handler = InPaintHandler(self.__client)
-
-        return handler(
+        return self.__in_paint_handler(
             prompt=prompt,
             image_path=image_path,
             mask_path=mask_path,
