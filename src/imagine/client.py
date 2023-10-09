@@ -1,4 +1,6 @@
 from typing import Optional
+
+from .features.aspect_ratio import AspectRatio
 from .features.generations.handler import GenerationsHandler
 from .features.image_remix.handler import ImageRemixHandler
 from .features.in_painting.handler import InPaintHandler
@@ -43,7 +45,7 @@ class Imagine:
         prompt: str,
         *,
         style: GenerationsStyle = GenerationsStyle.IMAGINE_V1,
-        aspect_ratio: Optional[str] = None,
+        aspect_ratio: AspectRatio = AspectRatio.ONE_RATIO_ONE,
         neg_prompt: Optional[str] = None,
         cfg: Optional[float] = None,
         seed: Optional[int] = None,
@@ -80,7 +82,7 @@ class Imagine:
         return handler(
             prompt=prompt,
             style_id=style.value,
-            aspect_ratio=aspect_ratio,
+            aspect_ratio=aspect_ratio.value,
             cfg=cfg,
             seed=seed,
             neg_prompt=neg_prompt,
