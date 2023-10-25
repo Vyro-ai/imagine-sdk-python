@@ -1,4 +1,4 @@
-# Imagine SDK
+# Imagine Python SDK
 
 Imagine SDK is a Python library that provides a convenient interface to interact with the Imagine API for image generation and manipulation. This README provides an overview of the library's features, installation instructions, and usage examples.
 
