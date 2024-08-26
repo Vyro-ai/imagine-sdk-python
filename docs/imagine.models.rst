@@ -1,6 +1,8 @@
 imagine.models package
 ======================
 
+Submodules
+----------
 
 imagine.models.image module
 ---------------------------
@@ -18,13 +20,8 @@ imagine.models.response module
    :undoc-members:
    :show-inheritance:
 
-imagine.models.status module
-----------------------------
-
-.. automodule:: imagine.models.status
-   :members:
-   :undoc-members:
-   :show-inheritance:
+Module contents
+---------------
 
 .. automodule:: imagine.models
    :members:

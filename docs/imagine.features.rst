@@ -7,10 +7,14 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   imagine.features.background
+   imagine.features.edits
+   imagine.features.enhance
+   imagine.features.face
    imagine.features.generations
-   imagine.features.image_remix
-   imagine.features.in_painting
-   imagine.features.super_resolution
+
+Module contents
+---------------
 
 .. automodule:: imagine.features
    :members:

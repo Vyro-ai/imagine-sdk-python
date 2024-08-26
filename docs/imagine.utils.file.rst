@@ -1,6 +1,9 @@
 imagine.utils.file package
 ==========================
 
+Submodules
+----------
+
 imagine.utils.file.read module
 ------------------------------
 
@@ -8,6 +11,9 @@ imagine.utils.file.read module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: imagine.utils.file
    :members:

@@ -1,4 +1,4 @@
-imagine.features.generations package
+imagine.features.edits.remix package
 ====================================
 
 Subpackages
@@ -7,17 +7,15 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   imagine.features.generations.background
-   imagine.features.generations.generations
-   imagine.features.generations.variations
+   imagine.features.edits.remix.remix
 
 Submodules
 ----------
 
-imagine.features.generations.handler module
+imagine.features.edits.remix.handler module
 -------------------------------------------
 
-.. automodule:: imagine.features.generations.handler
+.. automodule:: imagine.features.edits.remix.handler
    :members:
    :undoc-members:
    :show-inheritance:
@@ -25,7 +23,7 @@ imagine.features.generations.handler module
 Module contents
 ---------------
 
-.. automodule:: imagine.features.generations
+.. automodule:: imagine.features.edits.remix
    :members:
    :undoc-members:
    :show-inheritance:

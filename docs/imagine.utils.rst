@@ -12,6 +12,9 @@ Subpackages
    imagine.utils.imports
    imagine.utils.parameter
 
+Module contents
+---------------
+
 .. automodule:: imagine.utils
    :members:
    :undoc-members:

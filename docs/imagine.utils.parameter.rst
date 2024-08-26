@@ -1,6 +1,9 @@
 imagine.utils.parameter package
 ===============================
 
+Submodules
+----------
+
 imagine.utils.parameter.checker module
 --------------------------------------
 
@@ -16,6 +19,9 @@ imagine.utils.parameter.multipart module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: imagine.utils.parameter
    :members:

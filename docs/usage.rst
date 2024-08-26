@@ -6,8 +6,7 @@ The SDK needs to be configured with an API key which is available `here <https:/
 .. code-block:: python
 
    from imagine.client import Imagine
-   from imagine.features.generations.style_ids import GenerationsStyle
-   from imagine.models.status import Status
+   from imagine.enums import Styles, Status
 
    # Initialize the Imagine client with your API token
    client = Imagine(token="your-api-token")
@@ -15,7 +14,7 @@ The SDK needs to be configured with an API key which is available `here <https:/
    # Generate an image using the generations feature
    response = client.generations(
      prompt="A vibrant and whimsical fantasy forest with magical creatures, glowing plants, and a flowing river, in a digital painting style inspired by video games like Ori and the Blind Forest.",
-      style=GenerationsStyle.IMAGINE_V5,
+      style=Styles.Generations.IMAGINE_V5,
    )
 
    # Check if the request was successful
@@ -35,11 +34,11 @@ Imagine Client
 
 The `Imagine class <imagine.html#module-imagine.client>`_ acts as a facade, providing an interface to interact with all of our endpoints. It currently provides the following features:
 
-- **Text-To-Image**: ``generations() -> Response[Image]``
-- **Image-Remix**: ``image_remix() -> Response[Image]``
-- **Super-Resolution**: ``super_resolution() -> Response[Image]``
-- **Variations**: ``variations() -> Response[Image]`` `(Currently Not Supported)`
-- **In-Painting**: ``in_painting() -> Response[Image]`` `(Currently Not Supported)`
+- **Generations**: ``generations() -> Response[Image]``
+- **Background**: ``background() -> Response[Image]``
+- **Edits**: ``edits() -> Response[Image]``
+- **Enhance**: ``enhance() -> Response[Image]``
+- **Face**: ``face() -> Response[Image]``
 
 For the full list of parameters and other details, check out the `documentation <https://vyroai.notion.site/API-Documentation-e643af82991f4265841cff2951eac803>`_.
 
@@ -91,74 +90,3 @@ For more details on this function, check out the `documentation <imagine.models.
 The module is loaded dynamically and is not included in the default package, you can choose to forgo this dependency. `See this <integration.html>`_ for more information.
 
 For more details on this function, check out the `documentation <imagine.models.html#imagine.models.image.Image.to_numpy>`_.
-
-Some More Usage Examples
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-**Variations**
-
-.. note::
-
-   Currently Not Supported
-
-.. code-block:: python
-
-    from imagine.client import Imagine
-    from imagine.features.generations.style_ids import GenerationsStyle
-    from imagine.models.status import Status
-
-    # Initialize the Imagine client with your API token
-    client = Imagine(token="your-api-token")
-
-    # Generate an image using the variations feature
-    response = client.variate(
-        image_path="anime_girl.png",
-        prompt="a cute anime girl in a forest",
-        style=GenerationStyle.ANIME,
-    )
-
-    # Check if the request was successful
-    if response.status == Status.OK:
-        image = response.data
-        image.as_file("result.png")
-    else:
-        print(f"Status Code: {response.status.value}")
-
-**Result**:
-
-.. image:: https://vyroai.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7a2a54f2-c762-45ea-a1bd-c655ed421caa%2Fbanner_2.png?table=block&id=d60f4549-e35c-4044-afaa-7cd9d17803a2&spaceId=60572bb8-cbeb-42ba-b882-c88845384d44&width=2000&userId=&cache=v2
-   :alt: Variate
-
-**In-Painting**
-
-.. note::
-
-   Currently Not Supported
-
-.. code-block:: python
-
-    from imagine.client import Imagine
-    from imagine.features.in_painting.style_ids import InPaintingStyle
-    from imagine.models.status import Status
-
-    # Initialize the Imagine client with your API token
-    client = Imagine(token="your-api-token")
-
-    # Generate an image using the in_painting feature
-    response = client.in_painting(
-        image_path="couple.png",
-        mask_path="mask.png",
-        prompt="woman sitting next to a teddy bear",
-        style=InPaintingStyle.BASIC,
-    )
-
-    # Checking the request status
-    if response.status == Status.OK:
-        image = response.data
-        image.as_file("result.png")
-    else:
-        print(f"Status Code: {response.status.value}")
-
-**Result**:
-
-.. image:: https://vyroai.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7017cedd-aeda-4a3e-ad09-54eb8b93399d%2Finpainting.jpg?table=block&id=1bc58f0f-1d7f-465f-b414-200ceb2464b1&spaceId=60572bb8-cbeb-42ba-b882-c88845384d44&width=2000&userId=&cache=v2

@@ -9,6 +9,8 @@ Subpackages
 
    imagine.remote.rest
 
+Submodules
+----------
 
 imagine.remote.http\_client module
 ----------------------------------
@@ -17,6 +19,9 @@ imagine.remote.http\_client module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: imagine.remote
    :members:
