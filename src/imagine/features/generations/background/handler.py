@@ -37,9 +37,7 @@ class BackgroundHandler:
             prompt=prompt,
         )
 
-        status_code, content = self.__client.post(
-            self.__endpoint, parameters, files=files
-        )
+        status_code, content = self.__client.post(self.__endpoint, parameters, files)
         if status_code != 200:
             return Response(None, status_code)
 

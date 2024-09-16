@@ -127,7 +127,7 @@ class Generations:
             neg_prompt=neg_prompt,
         )
 
-    def backgruond(
+    def background(
         self,
         image_path: str,
         prompt: str,
