@@ -11,7 +11,7 @@ from .background.handler import BackgroundHandler
 class Generations:
     """
     The Generations class is responsible for generating images through
-    vairous methods that further use Imagine API's generation enpoints.
+    various methods that further use Imagine API's generation endpoints.
     """
 
     __client: HttpClient

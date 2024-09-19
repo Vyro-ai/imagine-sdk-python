@@ -57,7 +57,7 @@ class Response(Generic[T]):
         if self.__data is None:
             raise ValueError(
                 "Response data is not available in the response object."
-                + f" Status Resonse: {self.__status}"
+                + f" Status Response: {self.__status}"
             )
 
         return self.__data
