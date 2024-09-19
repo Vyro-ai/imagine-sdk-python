@@ -1,6 +1,9 @@
 imagine.type package
 ====================
 
+Submodules
+----------
+
 imagine.type.multipart module
 -----------------------------
 
@@ -8,6 +11,9 @@ imagine.type.multipart module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: imagine.type
    :members:

@@ -1,6 +1,9 @@
 imagine.remote.rest package
 ===========================
 
+Submodules
+----------
+
 imagine.remote.rest.http\_client module
 ---------------------------------------
 
@@ -8,6 +11,9 @@ imagine.remote.rest.http\_client module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: imagine.remote.rest
    :members:

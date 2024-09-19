@@ -1,18 +1,11 @@
 from typing import Optional
 
-from .features.aspect_ratio import AspectRatio
-from .features.generations.handler import GenerationsHandler
-from .features.image_remix.handler import ImageRemixHandler
-from .features.in_painting.handler import InPaintHandler
-from .features.super_resolution.handler import SuperResolutionHandler
-from .features.generations.variations.handler import VariationsHandler
-from .features.generations.style_ids import GenerationsStyle
-from .features.image_remix.controls import RemixControls
-from .features.image_remix.style_ids import ImageRemixStyle
-from .features.in_painting.style_ids import InPaintingStyle
-from .features.super_resolution.style_ids import SuperResolutionStyle
-from .models.image import Image
-from .models.response import Response
+from .features.generations.handler import Generations
+from .features.background.handler import Background
+from .features.edits.handler import Edits
+from .features.enhance.handler import Enhance
+from .features.face.handler import Face
+
 from .remote.http_client import HttpClient
 from .remote.rest.http_client import RestClient
 
@@ -27,11 +20,11 @@ class Imagine:
 
     __client: HttpClient
 
-    __generations_handler: GenerationsHandler
-    __image_remix_handler: ImageRemixHandler
-    __super_resolution_handler: SuperResolutionHandler
-    __variations_handler: VariationsHandler
-    __in_paint_handler: InPaintHandler
+    __generations_handler: Generations
+    __background_handler: Background
+    __edits_handler: Edits
+    __enhance_handler: Enhance
+    __face_handler: Face
 
     def __init__(self, token: str, *, client: Optional[HttpClient] = None) -> None:
         """
@@ -44,210 +37,73 @@ class Imagine:
         """
         self.__client = RestClient(token, client)
 
-        self.__generations_handler = GenerationsHandler(self.__client)
-        self.__image_remix_handler = ImageRemixHandler(self.__client)
-        self.__super_resolution_handler = SuperResolutionHandler(self.__client)
-        self.__variations_handler = VariationsHandler(self.__client)
-        self.__in_paint_handler = InPaintHandler(self.__client)
+        self.__generations_handler = Generations(self.__client)
+        self.__background_handler = Background(self.__client)
+        self.__edits_handler = Edits(self.__client)
+        self.__enhance_handler = Enhance(self.__client)
+        self.__face_handler = Face(self.__client)
 
-    def generations(
-        self,
-        prompt: str,
-        *,
-        style: GenerationsStyle = GenerationsStyle.IMAGINE_V1,
-        aspect_ratio: AspectRatio = AspectRatio.ONE_RATIO_ONE,
-        neg_prompt: Optional[str] = None,
-        cfg: Optional[float] = None,
-        seed: Optional[int] = None,
-        steps: Optional[int] = None,
-        high_res_results: bool = False,
-    ) -> Response[Image]:
+    @property
+    def generations(self) -> Generations:
         """
-        Generate an image based on specified parameters using the
-        GenerationsHandler.
+        Instances of all the methods that do generations
 
-        :param prompt: The prompt for generating the image.
-        :type prompt: str
-        :param style: The style for the image generation (default:
-            GenerationsStyle.STYLE_IMAGINE_V1).
-        :type style: :class:`GenerationsStyle`
-        :param aspect_ratio: The aspect ratio of the image (default: None).
-        :type aspect_ratio: Optional[str]
-        :param neg_prompt: The negative prompt for contrasting images (default: None).
-        :type neg_prompt: Optional[str]
-        :param cfg: The cfg parameter for image generation (default: None).
-        :type cfg: Optional[float]
-        :param seed: The random seed for reproducible generation (default: None).
-        :type seed: Optional[int]
-        :param steps: The number of steps for generating the image (default: None).
-        :type steps: Optional[int]
-        :param high_res_results: The level of high-resolution results (default: False).
-        :type high_res_results: bool
-        :return: A response containing the generated error or an :class:`Image`
-            object.
-        :rtype: :class:`Response`[:class:`Image`]
-        """
-        return self.__generations_handler(
-            prompt=prompt,
-            style_id=style.value,
-            aspect_ratio=aspect_ratio.value,
-            cfg=cfg,
-            seed=seed,
-            neg_prompt=neg_prompt,
-            high_res_results=int(high_res_results),
-            steps=steps,
-        )
+        :param client: An instance of an HTTP client used to make requests to the API.
+        :type client: :class:`HttpClient`
 
-    def image_remix(
-        self,
-        image_path: str,
-        prompt: str,
-        *,
-        style: ImageRemixStyle = ImageRemixStyle.IMAGINE_V1,
-        control: RemixControls = RemixControls.OPENPOSE,
-        seed: Optional[int] = None,
-        strength: Optional[int] = None,
-        steps: Optional[int] = None,
-        cfg: Optional[float] = None,
-        neg_prompt: Optional[str] = None,
-    ) -> Response[Image]:
+        :return: An instance of the Generations handler.
+        :rtype: class:Generations
         """
-        Remix an image based on specified parameters using the
-        ImageRemixHandler.
+        return self.__generations_handler
 
-        :param image_path: The path to the source image.
-        :type image_path: str
-        :param prompt: The prompt for remixing the image.
-        :type prompt: str
-        :param style: The style for the image remixing (default:
-            ImageRemixStyle.STYLE_IMAGINE_V1).
-        :type style: :class:`ImageRemixStyle`
-        :param control: The control settings for remixing (default:
-            RemixControls.OPENPOSE).
-        :type control: :class:`RemixControls`
-        :param seed: The random seed for reproducible remixing (default: None).
-        :type seed: Optional[int]
-        :param strength: The strength of the remixing effect (default: None).
-        :type strength: Optional[int]
-        :param steps: The number of steps for remixing the image (default: None).
-        :type steps: Optional[int]
-        :param cfg: The cfg parameter for remixing (default: None).
-        :type cfg: Optional[float]
-        :param neg_prompt: The negative prompt for remixing (default: None).
-        :type neg_prompt: Optional[str]
-        :return: A response containing the generated error or an :class:`Image`
-            object.
-        :rtype: :class:`Response`[:class:`Image`]
+    @property
+    def background(self) -> Background:
         """
-        return self.__image_remix_handler(
-            prompt=prompt,
-            image_path=image_path,
-            style_id=style.value,
-            control=control.value,
-            seed=seed,
-            strength=strength,
-            steps=steps,
-            cfg=cfg,
-            neg_prompt=neg_prompt,
-        )
+        Instances of all the methods to interact with the background of an image
 
-    def super_resolution(
-        self,
-        image_path: str,
-        *,
-        style: SuperResolutionStyle = SuperResolutionStyle.BASIC,
-    ) -> Response[Image]:
-        """
-        Enhance the resolution of an image using the SuperResolutionHandler.
+        :param client: An instance of an HTTP client used to make requests to the API.
+        :type client: :class:`HttpClient`
 
-        :param image_path: The path to the source image.
-        :type image_path: str
-        :param style: The model version for super resolution.
-        :type style: :class:SuperResolutionStyle
-        :return: A response containing the generated error or an :class:`Image`
-            object.
-        :rtype: :class:`Response`[:class:`Image`]
+        :return: An instance of the Background handler.
+        :rtype: class:Background
         """
-        return self.__super_resolution_handler(
-            image_path=image_path,
-            model_version=style.value
-        )
+        return self.__background_handler
 
-    def variations(
-        self,
-        image_path: str,
-        prompt: str,
-        *,
-        style: GenerationsStyle = GenerationsStyle.IMAGINE_V1,
-        seed: Optional[int] = None,
-        steps: Optional[int] = None,
-        strength: Optional[int] = None,
-        cfg: Optional[float] = None,
-        neg_prompt: Optional[str] = None,
-    ) -> Response[Image]:
+    @property
+    def edits(self) -> Edits:
         """
-        Generate a variation of an image based on specified parameters using
-        the VariateHandler. It is an extension of generations hence why it
-        uses the same styles as Generations.
+        Instances of all the methods to edit an image
 
-        :param image_path: The path to the source image.
-        :type image_path: str
-        :param prompt: The prompt for generating the variation.
-        :type prompt: str
-        :param style: The style for generating the variation.
-        :type style: :class:`GenerationsStyle`
-        :param seed: The random seed for reproducible generation.
-        :type seed: Optional[int]
-        :param steps: The number of steps for generating the variation.
-        :type steps: Optional[int]
-        :param strength: The strength of the variation effect.
-        :type strength: Optional[int]
-        :param cfg: The cfg parameter for generating the variation.
-        :type cfg: Optional[float]
-        :param neg_prompt: The negative prompt for contrasting variations.
-        :type neg_prompt: Optional[str]
-        :return: A response containing the generated error or an :class:`Image`
-            object.
-        :rtype: :class:`Response`[:class:`Image`]
-        """
-        return self.__variations_handler(
-            prompt=prompt,
-            image_path=image_path,
-            style_id=style.value,
-            strength=strength,
-            seed=seed,
-            steps=steps,
-            cfg=cfg,
-            neg_prompt=neg_prompt,
-        )
+        :param client: An instance of an HTTP client used to make requests to the API.
+        :type client: :class:`HttpClient`
 
-    def in_painting(
-        self,
-        image_path: str,
-        mask_path: str,
-        prompt: str,
-        *,
-        style: InPaintingStyle = InPaintingStyle.BASIC,
-    ) -> Response[Image]:
+        :return: An instance of the Edits handler.
+        :rtype: class:Edits
         """
-        Perform image in-painting based on specified parameters using the
-        InPaintHandler.
+        return self.__edits_handler
 
-        :param image_path: The path to the source image.
-        :type image_path: str
-        :param mask_path: The path to the mask image for in-painting.
-        :type mask_path: str
-        :param prompt: The prompt for guiding the in-painting process.
-        :type prompt: str
-        :param style: The model version for in-painting.
-        :type style: :class:`InPaintingModel`
-        :return: A response containing the generated error or an :class:`Image`
-            object.
-        :rtype: :class:`Response`[:class:`Image`]
+    @property
+    def enhance(self) -> Enhance:
         """
-        return self.__in_paint_handler(
-            prompt=prompt,
-            image_path=image_path,
-            mask_path=mask_path,
-            model_version=style.value,
-        )
+        Instances of all the methods to enhance an image
+
+        :param client: An instance of an HTTP client used to make requests to the API.
+        :type client: :class:`HttpClient`
+
+        :return: An instance of the Enhance handler.
+        :rtype: class:Enhance
+        """
+        return self.__enhance_handler
+
+    @property
+    def face(self) -> Face:
+        """
+        Instances of all the methods to edit a subject's image while maintaining facial identity
+
+        :param client: An instance of an HTTP client used to make requests to the API.
+        :type client: :class:`HttpClient`
+
+        :return: An instance of the Face handler.
+        :rtype: class:Face
+        """
+        return self.__face_handler

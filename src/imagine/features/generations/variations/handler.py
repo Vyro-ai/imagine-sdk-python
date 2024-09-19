@@ -4,12 +4,15 @@ from ....models.response import Response
 from ....models.image import Image
 from ....utils.error.checker import check_and_raise
 from ....utils.file.read import read_image_file_as_bytes
-from ....utils.parameter.checker import parameter_builder, non_optional_parameter_checker
+from ....utils.parameter.checker import (
+    parameter_builder,
+    non_optional_parameter_checker,
+)
 
 
 class VariationsHandler:
     """
-    The VariateHandler class is responsible for generating image variations
+    The VariationsHandler class is responsible for generating image variations
     based on specified parameters using the Imagine API's image variations
     endpoint.
 
@@ -58,9 +61,7 @@ class VariationsHandler:
 
         files = {"image": read_image_file_as_bytes(image_path)}
 
-        status_code, content = self.__client.post(
-            self.__endpoint, parameters=parameters, files=files
-        )
+        status_code, content = self.__client.post(self.__endpoint, parameters, files)
         if status_code != 200:
             return Response(None, status_code)
 

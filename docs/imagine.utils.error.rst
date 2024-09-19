@@ -1,6 +1,8 @@
 imagine.utils.error package
 ===========================
 
+Submodules
+----------
 
 imagine.utils.error.checker module
 ----------------------------------
@@ -9,6 +11,9 @@ imagine.utils.error.checker module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: imagine.utils.error
    :members:

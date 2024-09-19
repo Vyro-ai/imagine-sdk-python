@@ -1,6 +1,9 @@
 imagine.utils.imports package
 =============================
 
+Submodules
+----------
+
 imagine.utils.imports.dynamic module
 ------------------------------------
 
@@ -8,6 +11,9 @@ imagine.utils.imports.dynamic module
    :members:
    :undoc-members:
    :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: imagine.utils.imports
    :members:

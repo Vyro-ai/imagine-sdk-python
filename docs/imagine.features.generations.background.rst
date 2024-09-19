@@ -1,13 +1,13 @@
-imagine.features.generations.variations package
+imagine.features.generations.background package
 ===============================================
 
 Submodules
 ----------
 
-imagine.features.generations.variations.handler module
+imagine.features.generations.background.handler module
 ------------------------------------------------------
 
-.. automodule:: imagine.features.generations.variations.handler
+.. automodule:: imagine.features.generations.background.handler
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ imagine.features.generations.variations.handler module
 Module contents
 ---------------
 
-.. automodule:: imagine.features.generations.variations
+.. automodule:: imagine.features.generations.background
    :members:
    :undoc-members:
    :show-inheritance:
